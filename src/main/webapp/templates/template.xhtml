@@ -17,9 +17,9 @@
           url="#{facesContext.externalContext.requestContextPath}/index.xhtml"
           icon="pi pi-home"
         />
-        <p:submenu label="Cadastros">
+        <p:submenu label="Cadastros" icon="pi pi-bars">
           <p:column>
-            <p:submenu label="Básicos">
+            <p:submenu label="Controles">
               <p:menuitem 
                 action="#{controleCidade.listar()}"
                 value="Manutenção de cidades"
@@ -43,6 +43,11 @@
             </p:submenu>
           </p:column>
         </p:submenu>
+        <p:menuitem 
+          value="Segredo"
+          url="#{facesContext.externalContext.requestContextPath}/privado/segredo/index.xhtml"
+          icon="pi pi-heart"
+        />
       </p:megaMenu> 
     </h:form>
     <ui:insert name="conteudo">

@@ -17,7 +17,7 @@
           url="#{facesContext.externalContext.requestContextPath}/index.xhtml"
           icon="pi pi-home"
         />
-        <p:submenu label="Cadastros" icon="pi pi-bars">
+        <p:submenu label="Cadastros" icon="pi pi-bars" rendered="#{controleLogin.usuarioAutenticado != null}">
           <p:column>
             <p:submenu label="Controles">
               <p:menuitem 
@@ -41,13 +41,47 @@
                 ajax="false"
               />
             </p:submenu>
+            <p:submenu label="Agendamento" icon="pi pi-bars">
+              <p:menuitem 
+                action="#{controleVooAgendado.listar()}" 
+                value="Manutenção de voos agendados"
+                ajax="false"
+              />
+              <p:menuitem 
+                action="#{controleVoo.listar()}" 
+                value="Manutenção de voos"
+                ajax="false"
+              />
+            </p:submenu>
           </p:column>
         </p:submenu>
+
         <p:menuitem 
           value="Segredo"
           url="#{facesContext.externalContext.requestContextPath}/privado/segredo/index.xhtml"
           icon="pi pi-heart"
         />
+        
+        <p:submenu label="Usuario #{controleLogin.usuarioAutenticado != null ? controleLogin.usuarioAutenticado.nome : ''}">
+          <p:column>
+            <p:submenu label="Efetuar Login" rendered="#{controleLogin.usuarioAutenticado == null}">
+              <p:menuitem 
+                action="#{controleLogin.paginaLogin()}"
+                value="Login"
+                ajax="false"
+                icon="pi pi-user"
+              />
+            </p:submenu>
+            <p:submenu label="Efetuar Logout" rendered="#{controleLogin.usuarioAutenticado != null}">
+              <p:menuitem 
+                action="#{controleLogin.efetuarLogout()}"
+                value="Logout"
+                ajax="false"
+                icon="pi pi-power-off"
+              />
+            </p:submenu>
+          </p:column>
+        </p:submenu>
       </p:megaMenu> 
     </h:form>
     <ui:insert name="conteudo">

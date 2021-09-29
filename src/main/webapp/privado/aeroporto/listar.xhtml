@@ -10,12 +10,69 @@
         <ui:define name="conteudo">
             <h:form id="formListagem" prependId="false">
                 <p:growl/>
-                <p:commandButton value="Novo"
-                                 actionListener="#{controleAeroporto.novo()}"
-                                 icon="pi pi-plus"
-                                 update="formEdicao"
-                                 process="@this"
-                                 oncomplete="PF('dlg').show();"/>
+                <p:commandButton 
+                  value="Novo"
+                  actionListener="#{controleAeroporto.novo()}"
+                  icon="pi pi-plus"
+                  update="formEdicao"
+                  process="@this"
+                  oncomplete="PF('dlg').show();"
+                />
+                <div align="center">
+                  <p:panelGrid columns="11">
+                    <p:outputLabel value="Ordem: " />
+                    <p:selectOneMenu 
+                      value="#{controleAeroporto.dao.ordemAtual}" 
+                      id="selectOrdem"
+                      converter="#{controleAeroporto.dao.converterOrdem}"
+                    >
+                      <f:selectItems 
+                        value="#{controleAeroporto.dao.listaOrdem}"
+                        var="ordem"
+                        itemValue="#{ordem.atributo}"
+                      />
+                      <p:ajax update="listagem" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Filtro: " />
+                    <p:inputText value="#{controleAeroporto.dao.filtro}">
+                      <p:ajax update="listagem" event="blur" />
+                    </p:inputText>
+                    <p:commandButton value="Filtrar" update="listagem" />
+                    <p:outputLabel value="Máximo de objetos: " />
+                    <p:selectOneMenu value="#{controleAeroporto.dao.maximoObjetos}">
+                      <f:selectItem itemLabel="5" itemValue="5" />
+                      <f:selectItem itemLabel="10" itemValue="10" />
+                      <f:selectItem itemLabel="20" itemValue="20" />
+                      <f:selectItem itemLabel="50" itemValue="50" />
+                      <f:selectItem itemLabel="100" itemValue="100" />
+                      <p:ajax update="listagem" />
+                    </p:selectOneMenu>
+                    <p:commandButton 
+                      action="#{controleAeroporto.dao.primeiro()}"
+                      title="Primeiro"
+                      icon="pi pi-step-backward"
+                      update="listagem"
+                    />
+                    <p:commandButton 
+                      action="#{controleAeroporto.dao.anterior()}"
+                      title="Anterior"
+                      icon="pi pi-chevron-left"
+                      update="listagem"
+                    />
+                    <p:commandButton 
+                      action="#{controleAeroporto.dao.proximo()}"
+                      title="Primeiro"
+                      icon="pi pi-chevron-right"
+                      update="listagem"
+                    />
+                    <p:commandButton 
+                      action="#{controleAeroporto.dao.ultimo()}"
+                      title="Primeiro"
+                      icon="pi pi-step-forward"
+                      update="listagem"
+                    />
+                  </p:panelGrid>
+                </div>
                 <p:dataTable value="#{controleAeroporto.dao.listaObjetos}" var="obj"
                              id="listagem">
                     <p:column headerText="ID">

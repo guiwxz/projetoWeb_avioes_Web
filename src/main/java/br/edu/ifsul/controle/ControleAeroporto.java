@@ -95,7 +95,7 @@ public class ControleAeroporto implements Serializable {
         return daoCidade;
     }
 
-    public void setDaoEstado(CidadeDAO<Cidade> daoEstado) {
+    public void setDaoCidade(CidadeDAO<Cidade> daoCidade) {
         this.daoCidade = daoCidade;
     }
 

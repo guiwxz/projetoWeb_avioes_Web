@@ -5,7 +5,7 @@
  */
 package br.edu.ifsul.converters;
 
-import br.edu.ifsul.modelo.Cidade;
+import br.edu.ifsul.modelo.Pessoa;
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
@@ -19,9 +19,9 @@ import javax.persistence.PersistenceContext;
  *
  * @author GUI
  */
-@Named(value = "converterCidade")
+@Named(value = "converterPessoa")
 @RequestScoped
-public class ConverterCidade implements Serializable, Converter{
+public class ConverterPessoa implements Serializable, Converter{
 
     @PersistenceContext(unitName="ProjetoWeb_avioes_WEB")
     protected EntityManager em;
@@ -32,7 +32,7 @@ public class ConverterCidade implements Serializable, Converter{
         if (string  == null || string.equals("Selecione um registro")){
             return null;
         }
-        return em.find(Cidade.class, Integer.parseInt(string));
+        return em.find(Pessoa.class, Integer.parseInt(string));
     }
 
     //converte do objeto para a tela
@@ -41,7 +41,7 @@ public class ConverterCidade implements Serializable, Converter{
         if (t == null){
             return null;
         }
-        Cidade obj = (Cidade) t;
+        Pessoa obj = (Pessoa) t;
         return obj.getId().toString();
     }
     

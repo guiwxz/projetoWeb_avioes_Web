@@ -1,0 +1,217 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <p:dialog 
+    header="Edição" 
+    widgetVar="dlg" 
+    resizable="false"
+    modal="modal" 
+    width="50%" 
+    height="100%"
+  >
+    <h:form id="formEdicao" prependId="false">
+      <p:growl id="growl"/>
+      <p:tabView id="tab">
+      <p:tab title="Dados principais">
+        <div align="center">
+          <p:panelGrid columns="2">
+            <p:outputLabel value="ID"/>
+            <p:inputText value="#{controleVooAgendado.objeto.id}" size="50" readonly="true"/>
+            <p:outputLabel value="Aeronave" for="txtAeronave"/>
+            <p:inputText 
+              id="txtAeronave"
+              value="#{controleVooAgendado.objeto.aeronave}"
+              size="50" 
+              maxlength="50"
+              placeholder="Obrigatório"
+            />
+            <p:outputLabel value="Total passageiros" for="txtTotalPassageiros"/>
+            <p:inputText 
+              id="txtTotalPassageiros"
+              value="#{controleVooAgendado.objeto.totalPassageiros}"
+              size="50" 
+              maxlength="50"
+              placeholder="Obrigatório"
+            />
+            <p:outputLabel value="Data" for="txtData" /> 
+            <p:calendar 
+              id="txtData"
+              value="#{controleVooAgendado.objeto.data}"
+              size="50"
+              mask="true"
+              pattern="dd/MM/yyyy"
+              navigator="true"
+              maxlength="50"
+              placeholder="Obrigatório"
+            >
+              <f:converter converterId="converterCalendar" />
+            </p:calendar>
+            <p:outputLabel value="Voo" for="selectVoo" /> 
+            <p:selectOneMenu 
+              value="#{controleVooAgendado.objeto.voo}"
+              id="selectVoo"
+              filter="true"
+              filterMatchMode="startsWith"
+            >
+              <f:selectItem 
+                noSelectionOption="true"
+                itemLabel="Selecione um registro"
+              />
+              <f:converter binding="#{converterVoo}"/>
+              <f:selectItems
+                value="#{controleVooAgendado.daoVoo.listaTodos}"
+                var="voo"
+                itemLabel="#{voo.descricao}"
+              />
+          </p:selectOneMenu>
+          </p:panelGrid>
+        </div>
+      </p:tab>
+      <p:tab title="Passagens">
+        <p:dataTable
+          value="#{controleVooAgendado.objeto.passagens}"
+          var="passagem"
+          rowIndexVar="indexPassagem"
+          id="listaPassagens"
+        >
+          <f:facet name="header">
+            <p:commandButton 
+              value="Nova passagem"
+              actionListener="#{controleVooAgendado.novaPassagem()}"
+              update=":formPassagem"
+              icon="pi pi-plus"
+              process="@this"
+              oncomplete="PF('dlgPassagem').show();"
+            />
+          </f:facet>
+          <p:column headerText="ID">
+            <p:outputLabel value="#{passagem.id}" />
+          </p:column>
+          <p:column headerText="Data compra">
+            <p:outputLabel value="#{passagem.dataCompra}">
+              <f:converter converterId="converterCalendar" />  
+            </p:outputLabel>
+          </p:column>
+          <p:column headerText="bagagem">
+            <p:outputLabel value="#{passagem.bagagem}" />
+          </p:column>
+          <p:column headerText="Ações">
+            <div align="center">
+              <p:commandButton 
+                actionListener="#{controleVooAgendado.alterarPassagem(indexPassagem)}" 
+                icon="pi pi-pencil"
+                update=":formPassagem"
+                process="@this"
+                oncomplete="PF('dlgPassagem').show();"
+              />
+              <p:commandButton 
+                actionListener="#{controleVooAgendado.removerPassagem(indexPassagem)}"
+                icon="pi pi-trash"
+                update="tab:listaPassagens growl"
+                process="@this"
+                onclick="if (!confirm('Confirma a exclusão?'))return false"
+              />                                                                         
+            </div>                                                        
+          </p:column>
+        </p:dataTable>
+      </p:tab>
+    </p:tabView>
+
+      <p:panel>
+        <div align="center">
+          <p:commandButton 
+            value="Salvar" 
+            icon="pi pi-save"
+            actionListener="#{controleVooAgendado.salvar()}"
+            update="formEdicao formListagem"
+            oncomplete="if(!args.validationFailed){PF('dlg').hide();}"
+          />
+        </div>
+      </p:panel>
+    </h:form>    
+  </p:dialog>
+  
+  <p:dialog header="Edição de passagem" widgetVar="dlgPassagem" resizable="false" modal="true">
+    <h:form id="formPassagem">
+      <p:growl />
+      <p:panelGrid columns="2">
+        <f:facet name="footer">
+          <div align="center">
+            <p:commandButton 
+              value="Salvar"
+              icon="pi pi-save"
+              actionListener="#{controleVooAgendado.salvarPassagem()}"
+              update="tab:listaPassagens growl @form"
+              process="@form"
+              oncomplete="if(!args.validationFailed){PF('dlgPassagem').hide();}"
+            />
+          </div>
+        </f:facet>
+        <p:outputLabel value="ID"/>
+        <p:inputText value="#{controleVooAgendado.passagem.id}" readonly="true"/>
+        <p:outputLabel value="Data da compra" for="txtData"/>
+        <p:calendar 
+          id="txtData"
+          value="#{controleVooAgendado.passagem.dataCompra}"
+          size="50"
+          mask="true"
+          pattern="dd/MM/yyyy"
+          navigator="true"
+          maxlength="50"
+          placeholder="Obrigatório"
+        >
+          <f:converter converterId="converterCalendar" />
+        </p:calendar>
+        <p:outputLabel value="Bagagem" for="txtBagagem"/>
+        <p:inputNumber
+          id="txtBagagem" 
+          value="#{controleVooAgendado.passagem.bagagem}" 
+          size="50"
+          thousandSeparator=""
+          decimalSeparator="."
+          decimalPlaces="0"
+        />
+        <p:outputLabel value="Classe" for="selectClasse"/>
+        <p:selectOneMenu 
+          value="#{controleVooAgendado.passagem.classe}"
+          id="selectClasse"
+          filter="true"
+          filterMatchMode="startsWith"
+        >
+          <f:selectItem 
+            noSelectionOption="true"
+            itemLabel="Selecione um registro"
+          />
+          <f:converter binding="#{converterClasse}"/>
+          <f:selectItems
+            value="#{controleVooAgendado.daoClasse.listaTodos}"
+            var="classe"
+            itemLabel="#{classe.nome}"
+          />
+        </p:selectOneMenu>
+        <p:outputLabel value="Pessoa" for="selectPessoa"/>
+        <p:selectOneMenu 
+          value="#{controleVooAgendado.passagem.pessoa}"
+          id="selectPessoa"
+          filter="true"
+          filterMatchMode="startsWith"
+        >
+          <f:selectItem 
+            noSelectionOption="true"
+            itemLabel="Selecione um registro"
+          />
+          <f:converter binding="#{converterPessoa}"/>
+          <f:selectItems
+            value="#{controleVooAgendado.daoPessoa.listaTodos}"
+            var="pessoa"
+            itemLabel="#{pessoa.nome}"
+          />
+        </p:selectOneMenu>
+      </p:panelGrid>
+    </h:form>
+  </p:dialog>
+</html>
+

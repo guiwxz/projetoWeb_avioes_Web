@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioVoos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8bf9abdc-f633-441f-af73-7ddae7636733">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DadosVoo.xml"/>
+	<style name="zebra">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue() % 2 == 0)]]></conditionExpression>
+			<style backcolor="#DBDBDB"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[descricao]]></fieldDescription>
+	</field>
+	<field name="tempoEstimado" class="java.lang.Double">
+		<fieldDescription><![CDATA[tempoEstimado]]></fieldDescription>
+	</field>
+	<field name="periodicidade" class="java.lang.String">
+		<fieldDescription><![CDATA[periodicidade]]></fieldDescription>
+	</field>
+	<field name="ativo" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[ativo]]></fieldDescription>
+	</field>
+	<field name="voosAgendados" class="java.util.List">
+		<fieldDescription><![CDATA[voosAgendados]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="102" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="79" uuid="079dfd85-fcc1-4b7b-b02a-c7f000dd0ef6"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" uuid="a51a53b1-4928-45db-bb03-62fe8d1835a1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[Relatório de Voos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="32" backcolor="#DBDBDB" uuid="1ddbfd24-72ce-4b21-8928-04427f960fc6"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="0" width="40" height="30" uuid="45414a6c-0bcf-48c0-beb1-ab4d92eb533b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="54abb460-e956-4fd2-aba9-b5c2c1c9f879"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="0" width="230" height="30" uuid="1962eba9-00a1-4725-9c41-291e046fcea7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ccb5e9f6-35f9-4ce8-a852-f40f02750b83"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[Descricao]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="100" height="30" uuid="26d74d7e-97c5-4cc7-bea7-5d8645736d09">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="75e91ca8-62b3-433d-bcc0-01c804e0b97e"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[Tempo estimado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="100" height="30" uuid="d5e5d7c9-12a1-4b9f-91c4-452491167d4b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c82fea8f-0eab-4352-aca4-b359a8b6aa84"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[Periodicidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="0" width="75" height="30" uuid="07fa8717-55a5-45f3-93f2-cc605c5c6d41">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e92008e8-7f72-49af-81f8-fe10735f9bb4"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="85" splitType="Stretch">
+			<rectangle>
+				<reportElement style="zebra" stretchType="ElementGroupHeight" x="0" y="0" width="555" height="85" uuid="d311a07e-3a75-4882-bdd3-cf2de6c80067"/>
+			</rectangle>
+			<textField>
+				<reportElement x="10" y="0" width="40" height="30" uuid="dba40e52-d038-4a3b-8c7e-51facd273d2f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="54abb460-e956-4fd2-aba9-b5c2c1c9f879"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="50" y="0" width="230" height="30" uuid="25e7e4d6-bdf4-4ccf-8bb4-cf6506b3677f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ccb5e9f6-35f9-4ce8-a852-f40f02750b83"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="100" height="30" uuid="36dcb160-22b6-4c09-909d-61bc16bad34f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="75e91ca8-62b3-433d-bcc0-01c804e0b97e"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tempoEstimado} + " horas"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="100" height="30" uuid="916478fc-1abe-4022-95b8-0ada1a6b1ffd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c82fea8f-0eab-4352-aca4-b359a8b6aa84"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{periodicidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="0" width="64" height="30" uuid="f9d308a2-a6d1-4c34-b20c-8ce0e9f62779">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e92008e8-7f72-49af-81f8-fe10735f9bb4"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new String($F{ativo} ? "Ativo" : "Inativo")]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="10" y="40" width="534" height="20" uuid="8666f5ac-c4b5-43e8-bd2a-132a70c90cc1"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(
+	(java.util.List<br.edu.ifsul.modelo.VooAgendado>)$F{voosAgendados}
+)]]></dataSourceExpression>
+				<subreportExpression><![CDATA["sub_vooAgendado.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="70" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="220" y="40" width="150" height="30" uuid="efbeea33-617e-4389-a091-e3bed8244e9f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="40" width="100" height="30" uuid="3339d195-a48c-406a-ba70-822b5290d053"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="470" y="40" width="100" height="30" uuid="811c6db6-0fb0-49cb-8657-136827daa92d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

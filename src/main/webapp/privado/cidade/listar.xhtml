@@ -75,7 +75,7 @@
         </div>
         <p:dataTable value="#{controleCidade.dao.listaObjetos}" var="obj" id="listagem">
           <f:facet name="footer">
-            <p:outputLabel value="#controleCidade.dao.mensagemNavegacao" />
+            <p:outputLabel value="#{controleCidade.dao.mensagemNavegacao}" />
           </f:facet>
           <p:column headerText="ID">
             <p:outputLabel value="#{obj.id}"/>
